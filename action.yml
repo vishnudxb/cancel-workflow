@@ -14,17 +14,12 @@ inputs:
   access_token:
     description: 'Your GitHub Access Token, defaults to: {{ github.token }}'
     default: '${{ github.token }}'
-    required: false
-  status:
-    description: Specify success or failure or cancelled or custom.
-    required: true    
+    required: false 
 runs:
-  using: 'composite'
-  steps:
-    - run: ${{ github.action_path }}/cancel-job.sh
-      shell: bash
-      env:
-        REPO: ${{ inputs.repo }}
-        ID: ${{ inputs.workflow_id }}
-        TOKEN: ${{ inputs.access_token }}
-        
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.repo }}
+    - ${{ inputs.workflow_id }}
+    - ${{ inputs.access_token }}
+
