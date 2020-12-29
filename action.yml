@@ -1,0 +1,30 @@
+name: 'Cancel Workflow Action for failed jobs'
+description: 'This Action will cancel all the jobs if any of the jobs failed'
+author: vishnudxb
+branding:
+  icon: 'stop-circle'  
+  color: 'red'
+inputs:
+  repo:
+    description: 'Repo details: for eg: octocat/hello-world'
+    required: true  
+  workflow_id:
+    description: 'Github Action Workflow ID'
+    required: true
+  access_token:
+    description: 'Your GitHub Access Token, defaults to: {{ github.token }}'
+    default: '${{ github.token }}'
+    required: false
+  status:
+    description: Specify success or failure or cancelled or custom.
+    required: true    
+runs:
+  using: 'composite'
+  steps:
+    - run: ${{ github.action_path }}/cancel-job.sh
+      shell: bash
+      env:
+        REPO: ${{ inputs.repo }}
+        ID: ${{ inputs.workflow_id }}
+        TOKEN: ${{ inputs.access_token }}
+        
