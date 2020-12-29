@@ -8,7 +8,7 @@ See [action.yml](action.yml)
 Basic:
 ```yaml
 steps:
-- uses: vishnudxb/cancel-workflow@main
+- uses: vishnudxb/cancel-workflow@v1.0
   with:
     repo: octocat/hello-world
     workflow_id: 12345
@@ -31,7 +31,7 @@ jobs:
 
     - run: exit 1
 
-    - uses: vishnudxb/cancel-workflow@main
+    - uses: vishnudxb/cancel-workflow@v1.0
       if: failure()
       with:
         repo: octocat/hello-world
