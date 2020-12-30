@@ -8,12 +8,11 @@ See [action.yml](action.yml)
 Basic:
 ```yaml
 steps:
-- uses: vishnudxb/cancel-workflow@v1.1
+- uses: vishnudxb/cancel-workflow@v1.2
   with:
     repo: octocat/hello-world
-    workflow_id: 12345
+    workflow_id: ${{ github.run_id }}
     access_token: ${{ github.token }}
-    status: ${{ job.status }}
 ```
 
 Sample usage in github action job:
@@ -31,13 +30,12 @@ jobs:
 
     - run: exit 1
 
-    - uses: vishnudxb/cancel-workflow@v1.1
+    - uses: vishnudxb/cancel-workflow@v1.2
       if: failure()
       with:
         repo: octocat/hello-world
-        workflow_id: 12345
+        workflow_id: ${{ github.run_id }}
         access_token: ${{ github.token }}
-        status: ${{ job.status }}
 
   job-2:
     name: Run job2
